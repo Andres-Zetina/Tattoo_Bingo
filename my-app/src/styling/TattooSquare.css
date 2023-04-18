@@ -9,3 +9,7 @@
 .TattooSquare.Selected{
     background-color: red;
   }
+
+  .selected{
+    background-color: red;
+  }

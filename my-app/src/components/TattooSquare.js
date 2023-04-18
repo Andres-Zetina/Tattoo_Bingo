@@ -1,24 +1,26 @@
 import React from 'react';
 import '../styling/TattooSquare.css';
 
-function TattooSquare({ index, value, isEditable, isSelected, onChange,}) {
-  const handleClick = () => {
-    onChange(index, value, true);
-  };
-
+function TattooSquare({ index, value, isEditable, isSelected, onChange }) {
   const handleChange = (event) => {
     onChange(index, event.target.value);
   };
 
+  const handleClick = () => {
+    onChange(index, value, true);
+  };
+
   return (
-    <input
+    <div
       className={`TattooSquare ${isSelected ? 'selected' : ''}`}
-      type="text"
-      value={value}
-      readOnly={!isEditable}
-      onChange={handleChange}
       onClick={isEditable ? null : handleClick}
-    />
+    >
+      {isEditable ? (
+        <input type="text" value={value} onChange={handleChange} />
+      ) : (
+        <span>{value}</span>
+      )}
+    </div>
   );
 }
 

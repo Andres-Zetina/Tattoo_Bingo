@@ -14,10 +14,9 @@ function BingoBoard() {
   const [squares, setSquares] = useState(Array(25).fill(''));
   const [isEditable, setIsEditable] = useState(true);
   const [savedBoards, setSavedBoards] = useState([]);
-  const [selectedSquares, setSelectedSquares] = useState(new Set());
 
   const saveBoard = () => {
-    setSavedBoards([...savedBoards, squares.slice()]);
+    setSavedBoards([...savedBoards, { squares: squares.slice(), selectedSquares: new Set() }]);
   };
 
   const generateRandomBoard = () => {
@@ -29,19 +28,16 @@ function BingoBoard() {
     setSquares(randomSquares);
   };
 
-  const handleSquareChange = (index, newValue, isSelecting = false) => {
-    if (isEditable) {
-      const newSquares = squares.slice();
-      newSquares[index] = newValue;
-      setSquares(newSquares);
-    } else if (isSelecting) {
-      const newSelectedSquares = new Set(selectedSquares);
-      if (selectedSquares.has(index)) {
-        newSelectedSquares.delete(index);
+  const handleSquareChange = (boardIndex, squareIndex) => {
+    if (!isEditable) {
+      const newSavedBoards = savedBoards.slice();
+      const selectedSquares = newSavedBoards[boardIndex].selectedSquares;
+      if (selectedSquares.has(squareIndex)) {
+        selectedSquares.delete(squareIndex);
       } else {
-        newSelectedSquares.add(index);
+        selectedSquares.add(squareIndex);
       }
-      setSelectedSquares(newSelectedSquares);
+      setSavedBoards(newSavedBoards);
     }
   };
 
@@ -54,24 +50,24 @@ function BingoBoard() {
             index={index}
             value={square}
             isEditable={isEditable}
-            isSelected={selectedSquares.has(index)}
-            onChange={handleSquareChange}
+            isSelected={false}
+            onChange={() => {}}
           />
         ))}
       </div>
       <button onClick={generateRandomBoard}>Randomize</button>
       <button onClick={saveBoard}>Save</button>
       <div className="saved-boards">
-        {savedBoards.map((savedBoard, idx) => (
-          <div key={idx} className="board">
-            {savedBoard.map((square, index) => (
+        {savedBoards.map((savedBoard, boardIndex) => (
+          <div key={boardIndex} className="board">
+            {savedBoard.squares.map((square, squareIndex) => (
               <TattooSquare
-                key={index}
-                index={index}
+                key={squareIndex}
+                index={squareIndex}
                 value={square}
                 isEditable={false}
-                isSelected={false}
-                onChange={() => {}}
+                isSelected={savedBoard.selectedSquares.has(squareIndex)}
+                onChange={() => handleSquareChange(boardIndex, squareIndex)}
               />
             ))}
           </div>
