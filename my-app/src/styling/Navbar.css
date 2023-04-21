@@ -1,0 +1,19 @@
+
+.Navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #222;
+    padding: 1rem;
+  }
+  
+  .Navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+  }
+  
+  .Navbar .active {
+    color: #ffd700;
+    border-bottom: 2px solid #ffd700;
+  }
+  

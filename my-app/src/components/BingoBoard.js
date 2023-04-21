@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import TattooSquare from './TattooSquare';
 import '../styling/BingoBoard.css';
 
+// Sample list of tattoo ideas
 const tattooIdeas = [
   'Skull',
   'Rose',
   'Anchor',
   'Dragon',
   'Heart',
+  // Add more ideas here
 ];
 
-function BingoBoard() {
+function BingoBoard({ savedBoards, setSavedBoards }) {
   const [squares, setSquares] = useState(Array(25).fill(''));
   const [isEditable, setIsEditable] = useState(true);
-  const [savedBoards, setSavedBoards] = useState([]);
+  const [selectedSquare, setSelectedSquare] = useState(new Set());
 
   const saveBoard = () => {
     setSavedBoards([...savedBoards, { squares: squares.slice(), selectedSquares: new Set() }]);
@@ -28,16 +30,19 @@ function BingoBoard() {
     setSquares(randomSquares);
   };
 
-  const handleSquareChange = (boardIndex, squareIndex) => {
-    if (!isEditable) {
-      const newSavedBoards = savedBoards.slice();
-      const selectedSquares = newSavedBoards[boardIndex].selectedSquares;
-      if (selectedSquares.has(squareIndex)) {
-        selectedSquares.delete(squareIndex);
+  const handleSquareChange = (index, newValue) => {
+    if (isEditable) {
+      const newSquares = squares.slice();
+      newSquares[index] = newValue;
+      setSquares(newSquares);
+    } else {
+      const newSelectedSquare = new Set(selectedSquare);
+      if (selectedSquare.has(index)) {
+        newSelectedSquare.delete(index);
       } else {
-        selectedSquares.add(squareIndex);
+        newSelectedSquare.add(index);
       }
-      setSavedBoards(newSavedBoards);
+      setSelectedSquare(newSelectedSquare);
     }
   };
 
@@ -50,29 +55,14 @@ function BingoBoard() {
             index={index}
             value={square}
             isEditable={isEditable}
-            isSelected={false}
-            onChange={() => {}}
+            isSelected={selectedSquare.has(index)}
+            onChange={handleSquareChange}
           />
         ))}
       </div>
       <button onClick={generateRandomBoard}>Randomize</button>
+      <br></br>
       <button onClick={saveBoard}>Save</button>
-      <div className="saved-boards">
-        {savedBoards.map((savedBoard, boardIndex) => (
-          <div key={boardIndex} className="board">
-            {savedBoard.squares.map((square, squareIndex) => (
-              <TattooSquare
-                key={squareIndex}
-                index={squareIndex}
-                value={square}
-                isEditable={false}
-                isSelected={savedBoard.selectedSquares.has(squareIndex)}
-                onChange={() => handleSquareChange(boardIndex, squareIndex)}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
