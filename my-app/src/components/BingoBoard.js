@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TattooSquare from './TattooSquare';
 import '../styling/BingoBoard.css';
 
+
 // Sample list of tattoo ideas
 const tattooIdeas = [
   'Skull',
@@ -13,7 +14,10 @@ const tattooIdeas = [
 ];
 
 function BingoBoard({ savedBoards, setSavedBoards }) {
-  const [squares, setSquares] = useState(Array(25).fill(''));
+    const initialSquares = Array(25).fill('');
+    initialSquares[12] = 'Bingo!';
+
+  const [squares, setSquares] = useState(initialSquares);
   const [isEditable, setIsEditable] = useState(true);
   const [selectedSquare, setSelectedSquare] = useState(new Set());
 
@@ -25,7 +29,11 @@ function BingoBoard({ savedBoards, setSavedBoards }) {
     setIsEditable(false);
     const randomSquares = [];
     for (let i = 0; i < 25; i++) {
-      randomSquares.push(tattooIdeas[Math.floor(Math.random() * tattooIdeas.length)]);
+      if(i === 12) {
+        randomSquares.push('Bingo!');
+      } else {
+        randomSquares.push(tattooIdeas[Math.floor(Math.random() * tattooIdeas.length)])
+      }
     }
     setSquares(randomSquares);
   };
@@ -47,15 +55,15 @@ function BingoBoard({ savedBoards, setSavedBoards }) {
   };
 
   return (
-    <div className="BingoBoard">
+    <div className="BingoBoardWrapper">
       <div className="board">
         {squares.map((square, index) => (
           <TattooSquare
             key={index}
             index={index}
             value={square}
-            isEditable={isEditable}
-            isSelected={selectedSquare.has(index)}
+            isEditable={isEditable && index !== 12}
+            isSelected={index === 12 || selectedSquare.has (index)}
             onChange={handleSquareChange}
           />
         ))}

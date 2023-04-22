@@ -1,14 +1,20 @@
-.BingoBoard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.BingoBoardWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  padding: 16px;
   }
   
   .board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin: 16px;
+    grid-gap: 5px;
+    padding: 5px;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 500px;
   }
   
   button {
@@ -25,3 +31,22 @@
     background-color: #0056B3;
   }
   
+/* Responsive styles for tablets */
+@media (max-width: 768px) {
+  .board {
+    max-width: 400px;
+  }
+}
+
+/* Responsive styles for mobile devices */
+@media (max-width: 480px) {
+  .board {
+    max-width: 300px;
+  }
+}
+
+
+
+
+
+

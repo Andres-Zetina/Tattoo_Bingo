@@ -1,11 +1,28 @@
 .TattooSquare {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    text-align: center;
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  color: #333333;
+  cursor: pointer;
   }
   
+  .TattooSquare input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: transparent;
+  }
+
 .TattooSquare.Selected{
     background-color: red;
   }
@@ -13,3 +30,39 @@
   .selected{
     background-color: red;
   }
+
+  .tattoo-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    width: 90px; /* Set the width of the square */
+    height: 90px; /* Set the height of the square */
+    cursor: pointer;
+  }
+  
+  .tattoo-square input,
+  .tattoo-square span {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .tattoo-square span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .tattoo-square input {
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .tattoo-square.selected {
+    background-color: red;
+  }
+  
+  
