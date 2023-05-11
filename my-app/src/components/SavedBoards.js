@@ -1,21 +1,32 @@
-import React from "react";
-import TattooSquare from "./TattooSquare";  
+import React from 'react';
+import TattooSquare from './TattooSquare';
+// import '../styling/SavedBoards.css';
 
+function SavedBoards({ savedBoards, setSavedBoards }) {
+  const handleClick = (index, boardIndex) => {
+    const newSavedBoards = [...savedBoards];
+    if (newSavedBoards[boardIndex].selectedSquares.includes(index)) {
+      const newSelectedSquares = newSavedBoards[boardIndex].selectedSquares.filter(i => i !== index);
+      newSavedBoards[boardIndex].selectedSquares = newSelectedSquares;
+    } else {
+      newSavedBoards[boardIndex].selectedSquares.push(index);
+    }
+    setSavedBoards(newSavedBoards);
+    localStorage.setItem('savedBoards', JSON.stringify(newSavedBoards));
+  };
 
-
-function SavedBoards({ savedBoards, handleSquareChange }) {
-    return (
-      <div className="saved-boards">
-        {savedBoards.map((savedBoard, boardIndex) => (
-          <div key={boardIndex} className="board">
-            {savedBoard.squares.map((square, squareIndex) => (
-              <TattooSquare
-                key={squareIndex}
-                index={squareIndex}
-                value={square}
-                isEditable={false}
-                isSelected={savedBoard.selectedSquares.has(squareIndex)}
-                onChange={() => handleSquareChange(boardIndex, squareIndex)}
+  return (
+    <div className="SavedBoards">
+      {savedBoards.map((savedBoard, boardIndex) => (
+        <div className="board" key={boardIndex}>
+          {savedBoard.squares.map((square, index) => (
+            <TattooSquare
+              key={index}
+              index={index}
+              value={square}
+              isEditable={false}
+              isSelected={savedBoard.selectedSquares.includes(index)}
+              onChange={() => handleClick(index, boardIndex)}
             />
           ))}
         </div>
@@ -25,4 +36,3 @@ function SavedBoards({ savedBoards, handleSquareChange }) {
 }
 
 export default SavedBoards;
-

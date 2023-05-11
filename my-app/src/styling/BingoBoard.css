@@ -16,19 +16,29 @@
     width: 90%;
     max-width: 500px;
   }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
   
   button {
-    background-color: #007BFF;
-    color: white;
+    width: 120px;
+    padding: 10px 20px;
     border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 5px;
+    background-color: #FA8072;
+    color: #F2F2F2;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
+    
   }
   
   button:hover {
-    background-color: #0056B3;
+    background-color: #FF7F50;
   }
   
 /* Responsive styles for tablets */

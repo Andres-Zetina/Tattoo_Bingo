@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TattooSquare from './TattooSquare';
 import '../styling/BingoBoard.css';
-
 
 // Sample list of tattoo ideas
 const tattooIdeas = [
@@ -14,15 +13,26 @@ const tattooIdeas = [
 ];
 
 function BingoBoard({ savedBoards, setSavedBoards }) {
-    const initialSquares = Array(25).fill('');
-    initialSquares[12] = 'Bingo!';
+  const initialSquares = Array(25).fill('');
+  initialSquares[12] = 'Bingo!';
 
   const [squares, setSquares] = useState(initialSquares);
   const [isEditable, setIsEditable] = useState(true);
-  const [selectedSquare, setSelectedSquare] = useState(new Set());
+  const [selectedSquare, setSelectedSquare] = useState([]);
+
+  useEffect(() => {
+    const loadedBoards = localStorage.getItem('savedBoards');
+    if (loadedBoards) {
+      const parsedBoards = JSON.parse(loadedBoards);
+      parsedBoards.forEach(board => board.selectedSquares = Array.from(board.selectedSquares));
+      setSavedBoards(parsedBoards);
+    }
+  }, []);
 
   const saveBoard = () => {
-    setSavedBoards([...savedBoards, { squares: squares.slice(), selectedSquares: new Set() }]);
+    const newSavedBoards = [...savedBoards, { squares: squares.slice(), selectedSquares: selectedSquare.slice() }];
+    setSavedBoards(newSavedBoards);
+    localStorage.setItem('savedBoards', JSON.stringify(newSavedBoards));
   };
 
   const generateRandomBoard = () => {
@@ -44,11 +54,12 @@ function BingoBoard({ savedBoards, setSavedBoards }) {
       newSquares[index] = newValue;
       setSquares(newSquares);
     } else {
-      const newSelectedSquare = new Set(selectedSquare);
-      if (selectedSquare.has(index)) {
-        newSelectedSquare.delete(index);
+      const newSelectedSquare = [...selectedSquare];
+      const selectedIndex = newSelectedSquare.indexOf(index);
+      if (selectedIndex !== -1) {
+        newSelectedSquare.splice(selectedIndex, 1);
       } else {
-        newSelectedSquare.add(index);
+        newSelectedSquare.push(index);
       }
       setSelectedSquare(newSelectedSquare);
     }
@@ -63,14 +74,15 @@ function BingoBoard({ savedBoards, setSavedBoards }) {
             index={index}
             value={square}
             isEditable={isEditable && index !== 12}
-            isSelected={index === 12 || selectedSquare.has (index)}
+            isSelected={index === 12 || selectedSquare.includes(index)}
             onChange={handleSquareChange}
           />
         ))}
       </div>
-      <button onClick={generateRandomBoard}>Randomize</button>
-      <br></br>
-      <button onClick={saveBoard}>Save</button>
+      <div className='buttons'>
+        <button onClick={generateRandomBoard}>Randomize</button>
+        <button onClick={saveBoard}>Save</button>
+      </div>
     </div>
   );
 }
