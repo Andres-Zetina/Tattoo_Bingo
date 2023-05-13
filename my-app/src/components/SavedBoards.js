@@ -15,6 +15,12 @@ function SavedBoards({ savedBoards, setSavedBoards }) {
     localStorage.setItem('savedBoards', JSON.stringify(newSavedBoards));
   };
 
+  const removeBoard = (index)  => {
+    const newBoards = savedBoards.filter((board, i) => i !== index);
+    setSavedBoards(newBoards);
+    localStorage.setItem('savedBoards', JSON.stringify(newBoards));
+  }
+
   return (
     <div className="SavedBoards">
       {savedBoards.map((savedBoard, boardIndex) => (
