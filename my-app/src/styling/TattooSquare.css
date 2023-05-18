@@ -30,11 +30,11 @@
   }
 
 .TattooSquare.Selected{
-    background-color: #FF7F50;
+    background-color: #6B3359;
   }
 
   .selected{
-    background-color: #FF7F50;
+    background-color: #6B3359;
   }
 
   .tattoo-square {
@@ -68,7 +68,7 @@
   }
   
   .tattoo-square.selected {
-    background-color: #FF7F50;
+    background-color: #6B3359;
   }
   
   

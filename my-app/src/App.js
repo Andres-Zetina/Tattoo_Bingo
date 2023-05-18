@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import BingoBoard from './components/BingoBoard';
 import SavedBoards from './components/SavedBoards';
-import Home from './components/Home';
 
 
 function App() {
@@ -25,11 +24,8 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route 
-            path="/" 
-            element={<Home/>} index />
           <Route
-            path="/create"
+            path="/"
             element={<BingoBoard savedBoards={savedBoards} setSavedBoards={setSavedBoards} />}
           />
           <Route

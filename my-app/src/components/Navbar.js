@@ -9,8 +9,10 @@ function Navbar() {
 
     return (
         <nav className="Navbar">
-      <Link to="/" className={isActive('/') ? 'active' : ''}>Home</Link>
-      <Link to="/create" className={isActive('/create') ? 'active' : ''}>Create a Board</Link>
+      <Link to="/" className={isActive('/') ? 'active' : ''}>Create a Board</Link>
+      <div>
+        <h1>TattooBingo</h1>
+      </div>
       <Link to="/saved" className={isActive('/saved') ? 'active' : ''}>Saved Boards</Link>
     </nav>
     );
@@ -18,5 +20,3 @@ function Navbar() {
 
 export default Navbar;
 
-//<Link to="/create" className={isActive('/create') ? 'active' : ''}>Create a Board</Link>
-{/* <Link to="/saved" className={isActive('/saved') ? 'active' : ''}>Saved Boards</Link> */}
