@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import BingoBoard from './components/BingoBoard';
 import SavedBoards from './components/SavedBoards';
+import Home from './components/Home';
 
 
 function App() {
@@ -24,14 +25,16 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<h1>Welcome to Tattoo Bingo!</h1>} index />
+          <Route 
+            path="/" 
+            element={<Home/>} index />
           <Route
             path="/create"
             element={<BingoBoard savedBoards={savedBoards} setSavedBoards={setSavedBoards} />}
           />
           <Route
             path="/saved"
-            element={<SavedBoards savedBoards={savedBoards} handleSquareChange={handleSquareChange} />}
+            element={<SavedBoards savedBoards={savedBoards} setSavedBoards={setSavedBoards} handleSquareChange={handleSquareChange} />}
           />
         </Routes>
       </div>

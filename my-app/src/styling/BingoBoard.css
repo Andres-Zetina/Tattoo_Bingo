@@ -15,6 +15,7 @@
     margin: 0 auto;
     width: 90%;
     max-width: 500px;
+    align-content: stretch;
   }
 
   .buttons {
@@ -40,6 +41,14 @@
   button:hover {
     background-color: #FF7F50;
   }
+
+  .board-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
   
 /* Responsive styles for tablets */
 @media (max-width: 768px) {

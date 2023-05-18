@@ -24,21 +24,25 @@ function SavedBoards({ savedBoards, setSavedBoards }) {
   return (
     <div className="SavedBoards">
       {savedBoards.map((savedBoard, boardIndex) => (
-        <div className="board" key={boardIndex}>
-          {savedBoard.squares.map((square, index) => (
-            <TattooSquare
-              key={index}
-              index={index}
-              value={square}
-              isEditable={false}
-              isSelected={savedBoard.selectedSquares.includes(index)}
-              onChange={() => handleClick(index, boardIndex)}
-            />
-          ))}
+        <div className="board-container" key={boardIndex}>
+          <div className="board">
+            {savedBoard.squares.map((square, index) => (
+              <TattooSquare
+                key={index}
+                index={index}
+                value={square}
+                isEditable={false}
+                isSelected={savedBoard.selectedSquares.includes(index)}
+                onChange={() => handleClick(index, boardIndex)}
+              />
+            ))}
+          </div>
+          <button className='rmv' onClick={() => removeBoard(boardIndex)}>Remove</button>
         </div>
       ))}
     </div>
   );
+
 }
 
 export default SavedBoards;

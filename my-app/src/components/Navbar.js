@@ -17,3 +17,6 @@ function Navbar() {
 }
 
 export default Navbar;
+
+//<Link to="/create" className={isActive('/create') ? 'active' : ''}>Create a Board</Link>
+{/* <Link to="/saved" className={isActive('/saved') ? 'active' : ''}>Saved Boards</Link> */}
