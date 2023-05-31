@@ -9,6 +9,11 @@ const tattooIdeas = [
   'Anchor',
   'Dragon',
   'Heart',
+  'Number',
+  'Tear'  ,
+  'Cover up',
+  'Eagle',
+  'Snake',
   // Add more ideas here
 ];
 
